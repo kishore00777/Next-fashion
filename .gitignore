@@ -1,0 +1,8 @@
+# Ignore Next.js build artifacts
+.next/
+
+# Ignore Visual Studio Code settings
+.vscode/
+
+# Ignore node_modules directory
+node_modules/
