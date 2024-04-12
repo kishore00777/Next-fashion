@@ -20,10 +20,10 @@ import { ProductsFromSlice } from "@/store/Reducer/ProductSlice";
 import { useState } from "react";
 
 function Header() {
-  const List = ({ href, sx, variant, label, style, xl }) => {
+  const List = ({ href, sx, variant, label, style, xl, onClick }) => {
     return (
       <>
-        <Link href={href} style={{ margin: xl && 15, style }}>
+        <Link href={href} style={{ margin: xl && 15, style }} onClick={onClick}>
           <Typography
             variant={variant}
             className={poppins.className}
@@ -220,6 +220,7 @@ function Header() {
                   }
                   href="/cart"
                   sx={{ color: "white", fontWeight: "700" }}
+                  onClick={() => setmNav(false)}
                 />
 
                 <IconButton
