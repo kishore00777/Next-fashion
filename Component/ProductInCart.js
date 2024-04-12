@@ -16,6 +16,7 @@ import { poppins } from "@/assets/font";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function ProductInCart() {
   const productInCart = useSelector(ProductsFromSlice);
@@ -81,7 +82,7 @@ export default function ProductInCart() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: { xs: 330, sm: 350, md: 400, xl: 400, lg: 400 },
     bgcolor: "background.paper",
     p: 4,
     borderRadius: 2,
@@ -97,9 +98,8 @@ export default function ProductInCart() {
             bgcolor: "black",
             "&:hover": { bgcolor: "black", color: "white" },
           }}
-          href="/"
         >
-          {label}
+          <Link href="/">{label}</Link>
         </Button>
       </Box>
     );
@@ -117,6 +117,7 @@ export default function ProductInCart() {
           <Typography id="modal-modal-description" sx={{ mt: 0 }}>
             Are you sure you want to remove the product from the Bag?
           </Typography>
+          <br />
           <Box sx={{ display: "flex", justifyContent: "end" }}>
             <Button
               variant="contained"
@@ -141,7 +142,7 @@ export default function ProductInCart() {
                   dispatch(minus({ productId: storeId }));
                   handleClose();
                   setProgress(false);
-                }, 3000);
+                }, 500);
               }}
             >
               Yes{" "}
@@ -189,7 +190,7 @@ export default function ProductInCart() {
                   // display: "flex",
                   display: {
                     xs: "none",
-                    sm: "none",
+                    sm: "flex",
                     md: "flex",
                     lg: "flex",
                     xl: "flex",
@@ -344,14 +345,14 @@ export default function ProductInCart() {
             elevation={10}
             sx={{
               width: "100%",
-              height: 510,
+              // height: 460,
               borderColor: "white",
               overflow: "hidden",
               // p: 2,
               mt: 4,
               display: {
                 xs: "block",
-                sm: "block",
+                sm: "none",
                 md: "none",
                 lg: "none",
                 xl: "none",
@@ -360,7 +361,7 @@ export default function ProductInCart() {
             }}
           >
             <Box sx={{ position: "relative" }}>
-              <Image src={c.src} alt={c.alt} width={380} height={380} />
+              <Image src={c.src} alt={c.alt} />
             </Box>
             <Box sx={{ p: 1 }}>
               <Typography
@@ -447,7 +448,7 @@ export default function ProductInCart() {
                 </Grid>
               </Box>
 
-              <Grid
+              {/* <Grid
                 sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
               >
                 <IconButton
@@ -496,7 +497,7 @@ export default function ProductInCart() {
                     }}
                   />
                 </IconButton>
-              </Grid>
+              </Grid> */}
             </Box>
             <br />
           </Paper>
