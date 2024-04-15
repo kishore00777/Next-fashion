@@ -20,6 +20,7 @@ import {
 } from "@/store/Reducers/ProductSlice";
 import Image from "next/image";
 import ShoppingBagSharpIcon from "@mui/icons-material/ShoppingBagSharp";
+import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { poppins } from "@/assets/font";
@@ -129,13 +130,17 @@ export default function DealoftheDay() {
                 }, 500);
               }}
             >
-              Yes{" "}
-              {progress && (
+              &nbsp; Yes
+              {progress ? (
                 <CircularProgress
-                  size={20}
+                  size={30}
                   thickness={40}
                   sx={{ marginLeft: 2, color: "white" }}
                 />
+              ) : (
+                <IconButton size="small" sx={{ color: "white", marginLeft: 2 }}>
+                  <DeleteIcon />
+                </IconButton>
               )}
             </Button>
           </Box>
@@ -220,7 +225,9 @@ export default function DealoftheDay() {
                           size="small"
                           sx={{ color: "white" }}
                           onClick={() => {
-                            i.productCount === 1 && handleOpen(i.id);
+                            i.productCount === 1
+                              ? handleOpen(i.id)
+                              : dispatch(minus({ productId: i.id }));
                           }}
                         >
                           <RemoveIcon />
