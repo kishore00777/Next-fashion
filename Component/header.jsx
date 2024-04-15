@@ -16,7 +16,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { poppins } from "../assets/font";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { ProductsFromSlice } from "@/store/Reducer/ProductSlice";
+import { ProductsFromSlice } from "@/store/Reducers/ProductSlice";
 import { useState } from "react";
 
 function Header() {
@@ -75,7 +75,7 @@ function Header() {
             </Link>
 
             <Link
-              href="about"
+              href="/about"
               onClick={() => setmNav(false)}
               style={{ fontWeight: 700, fontSize: "40px" }}
             >
@@ -142,6 +142,12 @@ function Header() {
                   xl
                   href="/"
                   sx={{ color: "white", fontWeight: "700" }}
+                />{" "}
+                <List
+                  label={"Shop"}
+                  xl
+                  href="/"
+                  sx={{ color: "white", fontWeight: "700" }}
                 />
                 <List
                   label={"About"}
@@ -150,15 +156,9 @@ function Header() {
                   sx={{ color: "white", fontWeight: "700" }}
                 />
                 <List
-                  label={"Shop"}
-                  xl
-                  href="/"
-                  sx={{ color: "white", fontWeight: "700" }}
-                />
-                <List
                   label={
                     <IconButton aria-label="cart" sx={{ color: "white" }}>
-                      <Badge badgeContent={Count} color="error">
+                      <Badge badgeContent={Count} color="secondary">
                         <ShoppingBagSharpIcon />
                       </Badge>
                     </IconButton>
@@ -213,7 +213,7 @@ function Header() {
                       aria-label="cart"
                       sx={{ color: "white", mr: 2 }}
                     >
-                      <Badge badgeContent={Count} color="error">
+                      <Badge badgeContent={Count} color="success">
                         <ShoppingBagSharpIcon style={{ fontSize: 25 }} />
                       </Badge>
                     </IconButton>

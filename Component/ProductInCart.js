@@ -1,6 +1,6 @@
 "use client";
 import { useSelector, useDispatch } from "react-redux";
-import { ProductsFromSlice, minus, plus } from "@/store/Reducer/ProductSlice";
+import { ProductsFromSlice, minus, plus } from "@/store/Reducers/ProductSlice";
 import {
   Paper,
   Typography,

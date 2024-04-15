@@ -9,7 +9,7 @@ import { useState } from "react";
 import { keyframes } from "@emotion/react";
 import Snackbar from "@mui/material/Snackbar";
 import { useSelector, useDispatch } from "react-redux";
-import { ProductsFromSlice, addToCart } from "@/store/Reducer/ProductSlice";
+import { ProductsFromSlice, addToCart } from "@/store/Reducers/ProductSlice";
 
 export default function ProductCard({
   src,
@@ -96,6 +96,13 @@ export default function ProductCard({
               <>
                 <Box
                   sx={{
+                    display: {
+                      xs: "none",
+                      sm: "none",
+                      md: "block",
+                      lg: "block",
+                      xl: "block",
+                    },
                     position: "absolute",
                     top: 0,
                     left: 0,
@@ -141,6 +148,69 @@ export default function ProductCard({
                 </Box>
               </>
             )}
+            {/* _______________________________________________________________________________________________________________________________________________________ */}
+            {/* __________________________________________________________________Mobile View________________________________________________________________________ */}
+            {/* _______________________________________________________________________________________________________________________________________________________ */}
+            <>
+              <Box
+                sx={{
+                  display: {
+                    xs: "block",
+                    sm: "block",
+                    md: "none",
+                    lg: "none",
+                    xl: "none",
+                  },
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "rgba(0, 0, 0, 0.2)",
+                  // animation: `${fadeIn} 0.5s`,
+                }}
+              ></Box>
+              <Box
+                sx={{
+                  position: "absolute",
+                  right: 0,
+                  top: 0,
+                  display: {
+                    xs: "flex",
+                    sm: "flex",
+                    md: "none",
+                    lg: "none",
+                    xl: "none",
+                  },
+                  flexDirection: "column",
+                }}
+              >
+                <Icon
+                  icon={<ShoppingBagSharpIcon sx={{ fontSize: "30px" }} />}
+                  color={
+                    product[colorId]?.cart === "CART" ? "#00bbf9" : "white"
+                    // && cart === true
+                    // ? "#00bbf9"
+                    // : "white"
+                  }
+                  onClick={() => {
+                    product[colorId].cart === "CART";
+                    setCart(!product[colorId].cart === "CART" ? false : true);
+                    dispatch(addToCart({ productId: productId }));
+                  }}
+                />
+                <Icon
+                  icon={<FavoriteRoundedIcon sx={{ fontSize: "30px" }} />}
+                  color={favourite ? "#FF3040" : "white"}
+                  onClick={() => setFavourite(!favourite)}
+                />
+                <Icon
+                  icon={<ShareRoundedIcon sx={{ fontSize: "30px" }} />}
+                  color={"white"}
+                  onClick={() => copyToClipboard()}
+                />
+              </Box>
+            </>
           </Box>
           <br />
           <Typography
@@ -158,14 +228,15 @@ export default function ProductCard({
             {alt}
           </Typography>
           <Grid sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+            <Typography
+              className={poppins.className}
+              align="center"
+              sx={{ color: "#2e8b57", fontWeight: "600" }}
+            >
+              ₹{price}
+            </Typography>
             {!actualPrice ? null : (
               <>
-                <Typography
-                  className={poppins.className}
-                  sx={{ color: "#e95144", fontWeight: "500" }}
-                >
-                  <del>₹{actualPrice}</del>
-                </Typography>
                 &nbsp;&nbsp;
                 <Typography
                   className={poppins.className}
@@ -174,15 +245,14 @@ export default function ProductCard({
                   From
                 </Typography>
                 &nbsp;&nbsp;
+                <Typography
+                  className={poppins.className}
+                  sx={{ color: "#e95144", fontWeight: "500" }}
+                >
+                  <del>₹{actualPrice}</del>
+                </Typography>
               </>
             )}
-            <Typography
-              className={poppins.className}
-              align="center"
-              sx={{ color: "#2e8b57", fontWeight: "600" }}
-            >
-              ₹{price}
-            </Typography>
           </Grid>
         </Paper>
       </Grid>

@@ -16,7 +16,7 @@ export default function SlickCaro() {
     // infinite: true,
     arrows: false,
     speed: 500,
-    slidesToShow: 2,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplaySpeed: 2000,
     initialSlide: 0,

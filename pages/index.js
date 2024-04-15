@@ -1,31 +1,61 @@
 "use client";
-import { Typography, Grid } from "@mui/material";
+import { Typography, Grid, Box } from "@mui/material";
 import React, { useState } from "react";
 import { poppins } from "../assets/font";
 import SlickCaro from "../Component/Home/SlickCaro";
 import MainProduct from "@/Component/Home/MainProduct";
 import Header from "@/Component/header";
+import Brand from "@/Component/Home/Brand";
+import DealoftheDay from "@/Component/DealoftheDay";
 export default function page() {
   return (
     <>
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
+      />
       <Grid sx={{ width: "100%" }}>
-        <SlickCaro />
-        <Grid>
+        <Brand />
+        <br />
+        <br />
+        {/* <SlickCaro /> */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            marginLeft: "auto",
+            marginRight: "auto",
+            bgcolor: "#F1F2F4",
+            maxWidth: { xs: "90%", sm: "90%", md: "80%" },
+          }}
+        >
+          <br />
           <Typography
-            variant="h2"
-            align="center"
             className={poppins.className}
-            sx={{ fontWeight: "700", mt: 10, width: "100%" }}
+            variant="h4"
+            align="center"
+            sx={{ fontWeight: 700 }}
           >
-            Welcome to Fashion
+            Top Deals on Watches
           </Typography>
-
+          <br />
+          <DealoftheDay />
+          <br />
+        </Box>
+        <Grid
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <MainProduct />
         </Grid>
-        <MainProduct />
       </Grid>
       <br />
       <br />
-
 
       <br />
     </>
