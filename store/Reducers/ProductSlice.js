@@ -38,9 +38,15 @@ const ProductSlice = createSlice({
         };
       }
     },
+    filterProduct(state, action) {
+      const { searchQuery } = action.payload;
+      return product.filter((product) =>
+        product.alt.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    },
   },
 });
 
 export const ProductsFromSlice = (state) => state.product;
-export const { addToCart, plus, minus } = ProductSlice.actions;
+export const { addToCart, plus, minus, filterProduct } = ProductSlice.actions;
 export default ProductSlice.reducer;

@@ -20,6 +20,7 @@ import Link from "next/link";
 
 export default function ProductInCart() {
   const productInCart = useSelector(ProductsFromSlice);
+  console.log(productInCart);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [storeId, setStoreId] = useState(null);
@@ -99,7 +100,7 @@ export default function ProductInCart() {
             "&:hover": { bgcolor: "black", color: "white" },
           }}
         >
-          <Link href="/">{label}</Link>
+          <Link href="/shop">{label}</Link>
         </Button>
       </Box>
     );
@@ -185,7 +186,8 @@ export default function ProductInCart() {
           c.cart === "CART" && c.productCount > 0 ? (
             <Grid item xs={12} key={c.id}>
               <Paper
-                variant="outlined"
+                // variant="outlined"
+                elevation={10}
                 sx={{
                   // display: "flex",
                   display: {
@@ -198,6 +200,7 @@ export default function ProductInCart() {
                   borderColor: "#A0A6A3",
                   borderRadius: "7px",
                   cursor: "pointer",
+                  mt: 1,
                 }}
               >
                 <Image
@@ -206,9 +209,10 @@ export default function ProductInCart() {
                   width={200}
                   height={200}
                   style={{
-                    border: "0.5px solid #A0A6A3",
-                    borderRadius: "6px 0px 0px 6px",
-                    borderRight: "2px solid #A0A6A3",
+                    // border: "0.5px solid #A0A6A3",
+                    // borderRadius: "6px 0px 0px 6px",
+                    // borderRight: "2px solid #A0A6A3",
+                    padding: 4,
                   }}
                   priority
                 />
@@ -282,7 +286,7 @@ export default function ProductInCart() {
                     }}
                   >
                     <Price actualPrice={c.actualPrice} price={c.price} />
-                    <Grid sx={{ display: "flex", alignItems: "center" }}>
+                    {/* <Grid sx={{ display: "flex", alignItems: "center" }}>
                       <IconButton
                         size="small"
                         onClick={() => {
@@ -329,7 +333,57 @@ export default function ProductInCart() {
                           }}
                         />
                       </IconButton>
-                    </Grid>
+                    </Grid> */}
+                    <Button
+                      variant="outlined"
+                      sx={{
+                        color: "black",
+                        // bgcolor: "black",
+                        borderColor: "black",
+                        "&:hover": { color: "black", borderColor: "black" },
+                      }}
+                    >
+                      <IconButton
+                        size="small"
+                        onClick={() => {
+                          c.productCount === 1
+                            ? handleOpen(c.id)
+                            : dispatch(minus({ productId: c.id }));
+                        }}
+                      >
+                        <RemoveIcon
+                          sx={{
+                            fontSize: "20px",
+                            color: "black",
+                          }}
+                        />
+                      </IconButton>
+
+                      <Typography
+                        className={poppins.className}
+                        sx={{
+                          fontWeight: 700,
+                          fontSize: "20px",
+                          padding: "0 10px",
+                        }}
+                      >
+                        {" "}
+                        {c.productCount}
+                      </Typography>
+                      <IconButton
+                        size="small"
+                        onClick={() => {
+                          dispatch(plus({ productId: c.id }));
+                        }}
+                      >
+                        <AddIcon
+                          sx={{
+                            fontSize: "20px",
+                            color: "black",
+                          }}
+                        />
+                      </IconButton>
+                    </Button>
                   </Grid>
                 </Box>
               </Paper>

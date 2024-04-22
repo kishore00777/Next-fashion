@@ -1,15 +1,28 @@
 "use client";
-import { Typography, Grid, Box } from "@mui/material";
+import { Typography, Grid, Box, Container } from "@mui/material";
 import React, { useState } from "react";
 import { poppins } from "../assets/font";
 import SlickCaro from "../Component/Home/SlickCaro";
 import MainProduct from "@/Component/Home/MainProduct";
-import Header from "@/Component/header";
 import Brand from "@/Component/Home/Brand";
-import DealoftheDay from "@/Component/DealoftheDay";
+import DealoftheDay from "@/Component/Home/DealoftheDay";
+import { Bounce, ToastContainer } from "react-toastify";
 export default function page() {
   return (
     <>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Bounce}
+      />
       <link
         rel="stylesheet"
         type="text/css"
@@ -29,7 +42,6 @@ export default function page() {
             marginLeft: "auto",
             marginRight: "auto",
             bgcolor: "#F1F2F4",
-            maxWidth: { xs: "90%", sm: "90%", md: "80%" },
           }}
         >
           <br />
@@ -49,6 +61,7 @@ export default function page() {
           sx={{
             display: "flex",
             justifyContent: "center",
+            // alignItems: "center",
           }}
         >
           <MainProduct />

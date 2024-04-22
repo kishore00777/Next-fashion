@@ -1,6 +1,13 @@
 "use client";
 import { poppins } from "@/assets/font";
-import { Paper, Typography, Grid, Box, IconButton } from "@mui/material";
+import {
+  Paper,
+  Typography,
+  Grid,
+  Box,
+  IconButton,
+  Button,
+} from "@mui/material";
 import Image from "next/image";
 import ShoppingBagSharpIcon from "@mui/icons-material/ShoppingBagSharp";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
@@ -9,7 +16,15 @@ import { useState } from "react";
 import { keyframes } from "@emotion/react";
 import Snackbar from "@mui/material/Snackbar";
 import { useSelector, useDispatch } from "react-redux";
-import { ProductsFromSlice, addToCart } from "@/store/Reducers/ProductSlice";
+import {
+  ProductsFromSlice,
+  addToCart,
+  minus,
+  plus,
+} from "@/store/Reducers/ProductSlice";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function ProductCard({
   src,
@@ -19,11 +34,13 @@ export default function ProductCard({
   brand,
   productId,
   colorId,
+  productCount,
 }) {
   const [layer, setLayer] = useState(false);
   const [favourite, setFavourite] = useState(false);
   const [cart, setCart] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openSnack, setOpenSnack] = useState(false);
   const dispatch = useDispatch();
   const product = useSelector(ProductsFromSlice);
 
@@ -46,6 +63,10 @@ export default function ProductCard({
     setOpen(true);
   };
 
+  const offer = (price, actualPrice) => {
+    return Math.round((price / actualPrice) * 100);
+  };
+
   const Icon = ({ icon, onClick, color, sx }) => {
     return (
       <IconButton onClick={onClick} sx={{ color: color, sx }}>
@@ -65,197 +86,149 @@ export default function ProductCard({
   return (
     <>
       <Snackbar
-        open={open}
+        open={openSnack}
         autoHideDuration={2000}
-        onClose={handleClose}
-        message="Link copied to clipboard!"
+        onClose={() => {
+          setOpenSnack(false);
+        }}
+        message="Added to Bag Successfully"
+        action={
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={() => {
+              setOpenSnack(false);
+            }}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        }
       />
-      <Grid
-        item
-        xs={12}
-        sm={6}
-        md={4}
-        lg={3}
-        sx={{ display: "flex", justifyContent: "center" }}
-      >
+      <>
         <Paper
           variant="outlined"
           sx={{
-            width: 400,
-            height: 500,
+            width: 300,
+            height: 400,
             borderColor: "white",
             overflow: "hidden",
             p: 2,
+            position: "relative",
           }}
           onMouseEnter={() => setLayer(true)}
           onMouseLeave={() => setLayer(false)}
         >
-          <Box sx={{ position: "relative" }}>
+          <Box sx={{}}>
             <Image src={src} alt={alt} width={380} height={380} priority />
-            {layer && (
-              <>
-                <Box
-                  sx={{
-                    display: {
-                      xs: "none",
-                      sm: "none",
-                      md: "block",
-                      lg: "block",
-                      xl: "block",
-                    },
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    animation: `${fadeIn} 0.5s`,
-                  }}
-                ></Box>
-                <Box
-                  sx={{
-                    position: "absolute",
-                    right: 0,
-                    top: 0,
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Icon
-                    icon={<ShoppingBagSharpIcon sx={{ fontSize: "30px" }} />}
-                    color={
-                      product[colorId]?.cart === "CART" ? "#00bbf9" : "white"
-                      // && cart === true
-                      // ? "#00bbf9"
-                      // : "white"
-                    }
-                    onClick={() => {
-                      product[colorId].cart === "CART";
-                      setCart(!product[colorId].cart === "CART" ? false : true);
-                      dispatch(addToCart({ productId: productId }));
-                    }}
-                  />
-                  <Icon
-                    icon={<FavoriteRoundedIcon sx={{ fontSize: "30px" }} />}
-                    color={favourite ? "#FF3040" : "white"}
-                    onClick={() => setFavourite(!favourite)}
-                  />
-                  <Icon
-                    icon={<ShareRoundedIcon sx={{ fontSize: "30px" }} />}
-                    color={"white"}
-                    onClick={() => copyToClipboard()}
-                  />
-                </Box>
-              </>
-            )}
-            {/* _______________________________________________________________________________________________________________________________________________________ */}
-            {/* __________________________________________________________________Mobile View________________________________________________________________________ */}
-            {/* _______________________________________________________________________________________________________________________________________________________ */}
-            <>
-              <Box
-                sx={{
-                  display: {
-                    xs: "block",
-                    sm: "block",
-                    md: "none",
-                    lg: "none",
-                    xl: "none",
-                  },
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: "rgba(0, 0, 0, 0.2)",
-                  // animation: `${fadeIn} 0.5s`,
-                }}
-              ></Box>
-              <Box
-                sx={{
-                  position: "absolute",
-                  right: 0,
-                  top: 0,
-                  display: {
-                    xs: "flex",
-                    sm: "flex",
-                    md: "none",
-                    lg: "none",
-                    xl: "none",
-                  },
-                  flexDirection: "column",
-                }}
-              >
-                <Icon
-                  icon={<ShoppingBagSharpIcon sx={{ fontSize: "30px" }} />}
-                  color={
-                    product[colorId]?.cart === "CART" ? "#00bbf9" : "white"
-                    // && cart === true
-                    // ? "#00bbf9"
-                    // : "white"
-                  }
-                  onClick={() => {
-                    product[colorId].cart === "CART";
-                    setCart(!product[colorId].cart === "CART" ? false : true);
-                    dispatch(addToCart({ productId: productId }));
-                  }}
-                />
-                <Icon
-                  icon={<FavoriteRoundedIcon sx={{ fontSize: "30px" }} />}
-                  color={favourite ? "#FF3040" : "white"}
-                  onClick={() => setFavourite(!favourite)}
-                />
-                <Icon
-                  icon={<ShareRoundedIcon sx={{ fontSize: "30px" }} />}
-                  color={"white"}
-                  onClick={() => copyToClipboard()}
-                />
-              </Box>
-            </>
+
+            <Box
+              sx={{
+                position: "absolute",
+                right: 0,
+                top: 0,
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Icon
+                icon={<FavoriteRoundedIcon sx={{ fontSize: "30px" }} />}
+                color={favourite ? "#FF3040" : "rgb(157,158,157,0.5)"}
+                onClick={() => setFavourite(!favourite)}
+              />
+            </Box>
           </Box>
           <br />
+
           <Typography
             className={poppins.className}
-            align="center"
-            sx={{ fontWeight: "600", color: "#9D9E9D" }}
-          >
-            {brand}
-          </Typography>
-          <Typography
-            className={poppins.className}
-            align="center"
+            align="left"
             sx={{ fontSize: "15px", fontWeight: "500" }}
           >
             {alt}
           </Typography>
-          <Grid sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-            <Typography
-              className={poppins.className}
-              align="center"
-              sx={{ color: "#2e8b57", fontWeight: "600" }}
-            >
-              ₹{price}
-            </Typography>
-            {!actualPrice ? null : (
-              <>
-                &nbsp;&nbsp;
-                <Typography
-                  className={poppins.className}
-                  sx={{ fontSize: "14px", color: "#9D9E9D" }}
+          <Typography
+            className={poppins.className}
+            align="left"
+            sx={{ fontWeight: "600", color: "#9D9E9D", fontSize: "12px" }}
+          >
+            {brand}
+          </Typography>
+          <Grid
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              mt: 2,
+            }}
+          >
+            <Box sx={{ display: "flex", justifyContent: "left" }}>
+              <Typography
+                className={poppins.className}
+                align="center"
+                sx={{ color: "black", fontWeight: "600", fontSize: "15px" }}
+              >
+                ₹{price}
+              </Typography>
+              &nbsp;&nbsp;
+              <Typography
+                className={poppins.className}
+                sx={{ color: "#e95144", fontSize: "15px" }}
+              >
+                <del>₹{actualPrice}</del>
+              </Typography>
+              &nbsp;&nbsp;
+              <Typography
+                className={poppins.className}
+                sx={{ color: "#2e8b57", fontWeight: "500", fontSize: "15px" }}
+              >
+                {offer(price, actualPrice)}%off
+              </Typography>
+            </Box>
+            <Box sx={{ display: "flex", justifyContent: "right" }}>
+              {" "}
+              {productCount === null && (
+                <Button
+                  variant="contained"
+                  size="small"
+                  sx={{
+                    color: "white",
+                    bgcolor: "green",
+                    height: "50%",
+                    fontSize: "8px",
+                    borderRadius: 10,
+                    "&:hover": { bgcolor: "green", color: "white" },
+                  }}
+                  onClick={() => {
+                    product[colorId].cart === "CART";
+                    setCart(!product[colorId].cart === "CART" ? false : true);
+                    dispatch(addToCart({ productId: productId }));
+                    setOpenSnack(true);
+                  }}
                 >
-                  From
-                </Typography>
-                &nbsp;&nbsp;
-                <Typography
-                  className={poppins.className}
-                  sx={{ color: "#e95144", fontWeight: "500" }}
-                >
-                  <del>₹{actualPrice}</del>
-                </Typography>
-              </>
-            )}
+                  Add to Bag
+                </Button>
+              )}
+            </Box>
+            {/* <>
+              &nbsp;&nbsp;
+              <Typography
+                className={poppins.className}
+                sx={{ fontSize: "14px", color: "#9D9E9D" }}
+              >
+                From
+              </Typography>
+              &nbsp;&nbsp;
+              <Typography
+                className={poppins.className}
+                sx={{ color: "#e95144", fontWeight: "500" }}
+              >
+                <del>₹{actualPrice}</del>
+              </Typography>
+            </> */}
           </Grid>
         </Paper>
-      </Grid>
+      </>
     </>
   );
 }
