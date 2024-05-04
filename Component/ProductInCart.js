@@ -32,8 +32,12 @@ export default function ProductInCart() {
   };
   const handleClose = () => setOpen(false);
 
+  const offer = (price, actualPrice) => {
+    return Math.round(((actualPrice - price) / actualPrice) * 100);
+  };
+
   const ProductCounts = productInCart.map(
-    (i) => i.productCount * (i.price === 0 ? null : i.price)
+    (i) => i.productCount * (i.file.price === 0 ? null : i.file.price)
   );
   const Total = ProductCounts.reduce((acc, val) => acc + val, 0);
 
@@ -158,7 +162,7 @@ export default function ProductInCart() {
           </Box>
         </Box>
       </Modal>{" "}
-      {Total === 0 ? (
+      {Total === 0 && (
         <>
           <Typography
             variant="h2"
@@ -170,15 +174,6 @@ export default function ProductInCart() {
           </Typography>
           <Shop label={"Shop Now"} />
         </>
-      ) : (
-        <Typography
-          variant="h2"
-          align="center"
-          className={poppins.className}
-          sx={{ fontWeight: "700" }}
-        >
-          Products in Your Bag
-        </Typography>
       )}
       <br />
       <Grid container spacing={2}>
@@ -186,8 +181,8 @@ export default function ProductInCart() {
           c.cart === "CART" && c.productCount > 0 ? (
             <Grid item xs={12} key={c.id}>
               <Paper
-                // variant="outlined"
-                elevation={10}
+                variant="outlined"
+                // elevation={10}
                 sx={{
                   // display: "flex",
                   display: {
@@ -204,8 +199,8 @@ export default function ProductInCart() {
                 }}
               >
                 <Image
-                  src={c.src}
-                  alt={c.alt}
+                  src={c.file.img[0]}
+                  alt={c.file.title}
                   width={200}
                   height={200}
                   style={{
@@ -235,46 +230,12 @@ export default function ProductInCart() {
                     <Grid sx={{ display: "flex" }}>
                       <Typography
                         className={poppins.className}
-                        sx={{ fontWeight: "700", fontSize: "17px" }}
+                        sx={{ fontWeight: "500", fontSize: "15px" }}
                       >
-                        {c.alt}
-                      </Typography>
-                      &nbsp;
-                      <Typography
-                        className={poppins.className}
-                        sx={{ fontWeight: "600", fontSize: "17px" }}
-                      >
-                        -
-                      </Typography>
-                      &nbsp;
-                      <Typography
-                        className={poppins.className}
-                        sx={{ fontWeight: "700", fontSize: "17px" }}
-                      >
-                        {c.brand}
-                      </Typography>
-                    </Grid>
-                    <Grid>
-                      <Typography
-                        className={poppins.className}
-                        align="center"
-                        sx={{
-                          color: "#2e8b57",
-                          fontWeight: "700",
-                          fontSize: "20px",
-                        }}
-                      >
-                        ₹ {c.price * c.productCount}.0
+                        {c.file.title} - {c.brand}
                       </Typography>
                     </Grid>
                   </Grid>
-                  <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute
-                  </Typography>
 
                   <Grid
                     sx={{
@@ -285,55 +246,42 @@ export default function ProductInCart() {
                       padding: "0px 10px 0px 0",
                     }}
                   >
-                    <Price actualPrice={c.actualPrice} price={c.price} />
-                    {/* <Grid sx={{ display: "flex", alignItems: "center" }}>
-                      <IconButton
-                        size="small"
-                        onClick={() => {
-                          c.productCount === 1
-                            ? handleOpen(c.id)
-                            : dispatch(minus({ productId: c.id }));
-                        }}
+                    <Grid sx={{ display: "flex" }}>
+                      <Typography
+                        className={poppins.className}
+                        sx={{ fontSize: "16px", fontWeight: 500 }}
                       >
-                        <RemoveIcon
-                          sx={{
-                            fontSize: "20px",
-                            borderRadius: 50,
-                            border: 1,
-                            borderColor: "black",
-                            color: "black",
-                          }}
-                        />
-                      </IconButton>
-
+                        {c.productCount > 0
+                          ? `₹${c.file.price * c.productCount}`
+                          : `₹${c.file.price}`}
+                      </Typography>
+                      &nbsp;&nbsp;
                       <Typography
                         className={poppins.className}
                         sx={{
-                          fontWeight: 700,
-                          fontSize: "20px",
-                          padding: "0 10px",
+                          color: "#9D9E9D",
+                          fontSize: "16px",
                         }}
                       >
-                        {" "}
-                        {c.productCount}
+                        <del>
+                          {c.productCount > 0
+                            ? `₹${c.file.actualPrice * c.productCount}`
+                            : `₹${c.file.actualPrice}`}
+                        </del>
                       </Typography>
-                      <IconButton
-                        size="small"
-                        onClick={() => {
-                          dispatch(plus({ productId: c.id }));
+                      &nbsp;&nbsp;
+                      <Typography
+                        className={poppins.className}
+                        sx={{
+                          color: "#388e3c",
+                          fontWeight: 500,
+                          fontSize: "16px",
                         }}
                       >
-                        <AddIcon
-                          sx={{
-                            fontSize: "20px",
-                            borderRadius: 50,
-                            border: 1,
-                            borderColor: "black",
-                            color: "black",
-                          }}
-                        />
-                      </IconButton>
-                    </Grid> */}
+                        {offer(c.file.price, c.file.actualPrice)}% off
+                      </Typography>
+                    </Grid>
+
                     <Button
                       variant="outlined"
                       sx={{
@@ -415,7 +363,7 @@ export default function ProductInCart() {
             }}
           >
             <Box sx={{ position: "relative" }}>
-              <Image src={c.src} alt={c.alt} />
+              <Image src={c.file.img[0]} alt={c.file.title} />
             </Box>
             <Box sx={{ p: 1 }}>
               <Typography
@@ -430,9 +378,9 @@ export default function ProductInCart() {
                 align="center"
                 sx={{ fontSize: "15px", fontWeight: "500" }}
               >
-                {c.alt}
+                {c.file.title}
               </Typography>
-              <Price actualPrice={c.actualPrice} price={c.price} />
+              <Price actualPrice={c.file.actualPrice} price={c.file.price} />
               <Box
                 sx={{
                   display: "flex",
@@ -450,7 +398,7 @@ export default function ProductInCart() {
                     fontSize: "20px",
                   }}
                 >
-                  ₹ {c.price * c.productCount}.0
+                  ₹ {c.file.price * c.productCount}.0
                 </Typography>
                 <Grid sx={{ display: "flex", justifyContent: "space-between" }}>
                   <IconButton

@@ -32,20 +32,13 @@ export default function MainProduct() {
       <br />
       <br />
       <Grid container sx={{ display: "flex", justifyContent: "center" }}>
-        {product.map((i) => (
-          <ProductCard
-            key={i.id}
-            src={i.src}
-            alt={i.alt}
-            brand={i.brand}
-            price={i.price}
-            actualPrice={i.actualPrice}
-            productId={i.id}
-            colorId={i.id}
-            productCount={i.productCount}
-          />
-        ))}
+        <ProductCard data={product} />
       </Grid>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </Box>
   );
 }

@@ -44,9 +44,20 @@ const ProductSlice = createSlice({
         product.alt.toLowerCase().includes(searchQuery.toLowerCase())
       );
     },
+    heart(state, action) {
+      const { productId } = action.payload;
+      const index = state.findIndex((product) => product.id === productId);
+      if (index !== -1) {
+        state[index] = {
+          ...state[index],
+          fav: state[index].fav === "heart" ? null : "heart",
+        };
+      }
+    },
   },
 });
 
 export const ProductsFromSlice = (state) => state.product;
-export const { addToCart, plus, minus, filterProduct } = ProductSlice.actions;
+export const { addToCart, plus, minus, filterProduct, heart } =
+  ProductSlice.actions;
 export default ProductSlice.reducer;

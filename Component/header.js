@@ -36,7 +36,7 @@ function Header() {
             sx={{
               sx,
               fontSize: "18px",
-              color: rout.asPath === href ? "white" : "#CECECE",
+              color: rout.asPath === href ? "white" : "#9D9E9D",
             }}
           >
             {label}
@@ -54,7 +54,7 @@ function Header() {
   const [mNav, setmNav] = useState(false);
   const StyledBadge = styled(Badge)({
     "& .MuiBadge-badge": {
-      // backgroundColor: "#ff36ab",
+      backgroundColor: "#F1229F",
       // backgroundColor: "",
       color: "white",
     },
@@ -149,9 +149,22 @@ function Header() {
                   sx={{
                     fontWeight: "700",
                     fontFamily: "'Passion', sans-serif",
+                    display: "flex",
+                    alignItems: "center",
                   }}
                 >
                   Fashion
+                  <Typography
+                    variant="h3"
+                    className={poppins.className}
+                    sx={{
+                      fontWeight: "700",
+                      // fontSize: "50px",
+                      color: "#ff36ab",
+                    }}
+                  >
+                    .
+                  </Typography>
                 </Typography>
               </Link>
               {/* <SearchBar /> */}
@@ -179,7 +192,7 @@ function Header() {
                 <List
                   label={
                     <IconButton aria-label="cart" sx={{ color: "white" }}>
-                      <StyledBadge badgeContent={Count} color="error">
+                      <StyledBadge badgeContent={Count}>
                         <ShoppingBagSharpIcon />
                       </StyledBadge>
                     </IconButton>
@@ -234,7 +247,7 @@ function Header() {
                       aria-label="cart"
                       sx={{ color: "white", mr: 2 }}
                     >
-                      <StyledBadge badgeContent={Count} color="success">
+                      <StyledBadge badgeContent={Count}>
                         <ShoppingBagSharpIcon style={{ fontSize: 25 }} />
                       </StyledBadge>
                     </IconButton>

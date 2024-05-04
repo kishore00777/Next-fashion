@@ -6,6 +6,7 @@ export default function shop() {
   return (
     <Grid sx={{ display: "flex", justifyContent: "center" }}>
       <MainProduct />
+      
     </Grid>
   );
 }

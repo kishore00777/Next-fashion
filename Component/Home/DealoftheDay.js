@@ -172,7 +172,7 @@ export default function DealoftheDay() {
                     bgcolor: "white",
                   }}
                 >
-                  <Image src={i.src} alt={i.alt} priority />
+                  <Image src={i.file.img[0]} width={300} height={300} alt={i.alt} priority />
                   <Box
                     sx={{ display: "flex", justifyContent: "center", mt: 2 }}
                   >
@@ -181,7 +181,7 @@ export default function DealoftheDay() {
                       align="center"
                       sx={{ color: "#2e8b57", fontWeight: "600" }}
                     >
-                      ₹{i.price}
+                      ₹{i.file.price}
                     </Typography>
                     &nbsp;&nbsp;
                     <Typography
@@ -195,7 +195,7 @@ export default function DealoftheDay() {
                       className={poppins.className}
                       sx={{ color: "#e95144", fontWeight: "500" }}
                     >
-                      <del>₹{i.actualPrice}</del>
+                      <del>₹{i.file.actualPrice}</del>
                     </Typography>
                   </Box>
                   <Box>
