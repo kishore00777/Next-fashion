@@ -9,7 +9,7 @@ const nextConfig = {
   exportPathMap: function () {
     return {
       "/": { page: "/" },
-      "/product": { page: "/product" },
+      "/product": { page: "/[product]" },
     };
   },
 };
