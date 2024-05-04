@@ -81,10 +81,12 @@ export default function Product() {
   let baseUrl = "";
 
   if (typeof window !== "undefined") {
-    baseUrl = `${window.location.protocol}//${window.location.host}${router.asPath}`;
-    console.log(window.location.protocol);
-    console.log(window.location.host);
-    console.log(router.asPath);
+    // baseUrl = `${window.location.protocol}//${window.location.host}${router.asPath}`;
+    baseUrl = window.location.href;
+    console.log(baseUrl);
+    // console.log(window.location.protocol);
+    // console.log(window.location.host);
+    // console.log(router.asPath);
   }
 
   const copyToClipboard = () => {
@@ -111,27 +113,24 @@ export default function Product() {
   };
 
   const text = "Check out this product!";
-  const Base = baseUrl.replace(/[^\w-]/g, "").toLowerCase();
+  // const Base = baseUrl.replace(/[^\w-]/g, "").toLowerCase();
+
   const shareViaWhatsApp = () => {
-    window.open(`whatsapp://send?text=${text}%20${Base}`);
+    const encodedUrl = encodeURIComponent(baseUrl);
+    window.open(`whatsapp://send?text=${text}%20${encodedUrl}`);
   };
   const shareViaFacebook = () => {
     window.open(
-      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(Base)}`
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        baseUrl
+      )}`
     );
-    // window.FB.ui(
-    //   {
-    //     method: "share",
-    //     href: `https://youtu.be/K0bmZgaKK0Y?feature=shared`,
-    //   },
-    //   function (response) {}
-    // );
   };
 
   const shareViaGmail = () => {
     window.open(
       `mailto:?subject=${encodeURIComponent(text)}&body=${encodeURIComponent(
-        Base
+        baseUrl
       )}`
     );
   };
@@ -139,7 +138,7 @@ export default function Product() {
   const shareViaTwitter = () => {
     window.open(
       `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-        Base
+        baseUrl
       )}&text=${encodeURIComponent(text)}`
     );
   };
