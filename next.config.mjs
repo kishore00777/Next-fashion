@@ -9,7 +9,7 @@ const nextConfig = {
   exportPathMap: function () {
     return {
       "/": { page: "/" },
-      // Add other routes as needed
+      "/product": { page: "/product" },
     };
   },
 };
