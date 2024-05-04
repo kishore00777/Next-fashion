@@ -82,10 +82,10 @@ export default function Product() {
 
   if (typeof window !== "undefined") {
     baseUrl = `${window.location.protocol}//${window.location.host}${router.asPath}`;
+    console.log(window.location.protocol);
+    console.log(window.location.host);
+    console.log(router.asPath);
   }
-  console.log(window.location.protocol);
-  console.log(window.location.host);
-  console.log(router.asPath);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(baseUrl);
