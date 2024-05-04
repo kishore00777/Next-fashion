@@ -26,7 +26,7 @@ import Loading from "@/Component/Loading";
 import Slider from "react-slick";
 import ProductCard from "@/Component/ProductCard";
 import { CloseSharp, WhatsApp } from "@mui/icons-material";
-import x from "@/assets/x.svg";
+import x from "@/assets/X.svg";
 import Instagram from "@/assets/Instagram.svg";
 import WhatsAppImage from "@/assets/WhatsApp.svg";
 import Gmail from "@/assets/Gmail.svg";
