@@ -20,8 +20,9 @@
 //   },
 // };
 const nextConfig = {
-  basePath: "/Next-fashion",
-  assetPrefix: "/Next-fashion/",
+  basePath: "https://kishore00777.github.io/Next-fashion/",
+  //   basePath: "/Next-fashion",
+  //   assetPrefix: "/Next-fashion/",
   output: "export",
   distDir: "dist",
   reactStrictMode: true,
