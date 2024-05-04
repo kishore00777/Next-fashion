@@ -83,10 +83,6 @@ export default function Product() {
   if (typeof window !== "undefined") {
     // baseUrl = `${window.location.protocol}//${window.location.host}${router.asPath}`;
     baseUrl = window.location.href;
-    console.log(baseUrl);
-    // console.log(window.location.protocol);
-    // console.log(window.location.host);
-    // console.log(router.asPath);
   }
 
   const copyToClipboard = () => {
