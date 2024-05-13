@@ -61,7 +61,9 @@ const StyledBox = styled(Box)({
 export default function Product() {
   const AllProducts = useSelector(ProductsFromSlice);
   const router = useRouter();
-  const { product } = router.query;
+  const { brand, title, id } = router.query;
+  console.log(brand, title, id);
+  // const { product } = router.query;
   const [favourite, setFavourite] = useState(false);
   const [slide, setSlide] = useState(0);
   const [open, setOpen] = useState(false);
@@ -84,6 +86,7 @@ export default function Product() {
     // baseUrl = `${window.location.protocol}//${window.location.host}${router.asPath}`;
     baseUrl = window.location.href;
   }
+  console.log(window.location.host);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(baseUrl);
@@ -102,8 +105,16 @@ export default function Product() {
   //   router.push(`/product-${brand}-${title}-${id}`);
   // };
 
+  // const handlePush = (brand, title, id) => {
+  //   router.push(`/product-${brand}-${title}-${id}`);
+  //   setSlide(0);
+  //   setLoad(true);
+  // };
   const handlePush = (brand, title, id) => {
-    router.push(`/product-${brand}-${title}-${id}`);
+    router.push({
+      pathname: "/product",
+      query: { brand, title, id },
+    });
     setSlide(0);
     setLoad(true);
   };
@@ -223,7 +234,8 @@ export default function Product() {
   //     });
   //   }
   // }, [data]);
-
+  // product?brand={}&title{}=&id={}
+  console.log(baseUrl);
   return (
     <>
       {load && <Loading />}
@@ -285,8 +297,10 @@ export default function Product() {
       <Box sx={{ bgcolor: "rgb(206,206,206,0.3)", position: "relative" }}>
         {AllProducts.map(
           (i) =>
-            `product-${i.brand}-${i.file.title}-${i.id.toString()}` ===
-              product && (
+            `${i.brand}&title=${i.file.title}=&id=${i.id.toString()}` ===
+              `${brand}&title=${title}=&id=${id}` && (
+              // `product-${i.brand}-${i.file.title}-${i.id.toString()}` ===
+              //   product && (
               <>
                 <Grid
                   key={i.id}

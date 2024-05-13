@@ -21,8 +21,14 @@ export default function ProductCard({ data }) {
   const dispatch = useDispatch();
 
   const router = useRouter();
+  // const handlePush = (brand, title, id) => {
+  //   router.push(`/[brand]-[title]-[id]`, `/product-${brand}-${title}-${id}`);
+  // };
   const handlePush = (brand, title, id) => {
-    router.push(`/product-${brand}-${title}-${id}`);
+    router.push({
+      pathname: '/product',
+      query: { brand, title, id },
+    });
   };
 
   const offer = (price, actualPrice) => {
