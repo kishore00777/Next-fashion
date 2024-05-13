@@ -62,7 +62,7 @@ export default function Product() {
   const AllProducts = useSelector(ProductsFromSlice);
   const router = useRouter();
   const { brand, title, id } = router.query;
-  console.log(brand, title, id);
+  // console.log(brand, title, id);
   // const { product } = router.query;
   const [favourite, setFavourite] = useState(false);
   const [slide, setSlide] = useState(0);
@@ -86,7 +86,7 @@ export default function Product() {
     // baseUrl = `${window.location.protocol}//${window.location.host}${router.asPath}`;
     baseUrl = window.location.href;
   }
-  console.log(window.location.host);
+  // console.log(window.location.host);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(baseUrl);
@@ -235,7 +235,7 @@ export default function Product() {
   //   }
   // }, [data]);
   // product?brand={}&title{}=&id={}
-  console.log(baseUrl);
+  // console.log(baseUrl);
   return (
     <>
       {load && <Loading />}

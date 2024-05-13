@@ -21,7 +21,6 @@
 // };
 const nextConfig = {
   basePath: "/Next-fashion",
-//   assetPrefix: "/Next-fashion/",
   output: "export",
   distDir: "dist",
   reactStrictMode: true,
